@@ -1,6 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { FindUserByConfirmationCodeQuery } from './find-user-by-confirmation-code.query';
-import { UsersRepository } from '../users.repository';
+import { UsersRepository } from '../users-sql.repository';
 import type { UserDocument } from '../../schemas/user.schema';
 
 @QueryHandler(FindUserByConfirmationCodeQuery)

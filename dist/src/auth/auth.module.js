@@ -14,13 +14,14 @@ const basic_auth_guard_1 = require("./guards/basic-auth.guard");
 const jwt_auth_guard_1 = require("./guards/jwt-auth.guard");
 const optional_jwt_guard_1 = require("./guards/optional-jwt.guard");
 const users_module_1 = require("../users/users.module");
+const device_sessions_module_1 = require("../device-sessions/device-sessions.module");
 const email_module_1 = require("../common/email/email.module");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
-        imports: [users_module_1.UsersModule, email_module_1.EmailModule],
+        imports: [users_module_1.UsersModule, device_sessions_module_1.DeviceSessionsModule, email_module_1.EmailModule],
         controllers: [auth_controller_1.AuthController],
         providers: [auth_service_1.AuthService, basic_auth_guard_1.BasicAuthGuard, jwt_auth_guard_1.JwtAuthGuard, optional_jwt_guard_1.OptionalJwtGuard],
         exports: [auth_service_1.AuthService, basic_auth_guard_1.BasicAuthGuard, jwt_auth_guard_1.JwtAuthGuard, optional_jwt_guard_1.OptionalJwtGuard],

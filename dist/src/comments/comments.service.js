@@ -13,7 +13,7 @@ exports.CommentsService = void 0;
 const common_1 = require("@nestjs/common");
 const comments_repository_1 = require("./comments.repository");
 const posts_repository_1 = require("../posts/posts.repository");
-const users_repository_1 = require("../users/users.repository");
+const users_sql_repository_1 = require("../users/users-sql.repository");
 let CommentsService = class CommentsService {
     commentsRepository;
     postsRepository;
@@ -82,6 +82,6 @@ exports.CommentsService = CommentsService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [comments_repository_1.CommentsRepository,
         posts_repository_1.PostsRepository,
-        users_repository_1.UsersRepository])
+        users_sql_repository_1.UsersRepository])
 ], CommentsService);
 //# sourceMappingURL=comments.service.js.map

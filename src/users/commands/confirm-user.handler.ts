@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { ConfirmUserCommand } from './confirm-user.command';
-import { UsersRepository } from '../users.repository';
+import { UsersRepository } from '../users-sql.repository';
 import type { UserDocument } from '../../schemas/user.schema';
 
 @CommandHandler(ConfirmUserCommand)

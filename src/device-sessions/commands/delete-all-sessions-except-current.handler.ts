@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DeleteAllSessionsExceptCurrentCommand } from './delete-all-sessions-except-current.command';
-import { DeviceSessionsRepository } from '../device-sessions.repository';
+import { DeviceSessionsRepository } from '../device-sessions-sql.repository';
 
 @CommandHandler(DeleteAllSessionsExceptCurrentCommand)
 export class DeleteAllSessionsExceptCurrentHandler

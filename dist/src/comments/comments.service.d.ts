@@ -1,6 +1,6 @@
 import { CommentsRepository } from './comments.repository';
 import { PostsRepository } from '../posts/posts.repository';
-import { UsersRepository } from '../users/users.repository';
+import { UsersRepository } from '../users/users-sql.repository';
 export declare class CommentsService {
     private readonly commentsRepository;
     private readonly postsRepository;

@@ -9,7 +9,7 @@ import { OutputPostType } from '../types/post/output';
 import { postMapper } from '../types/post/mapper';
 import { BlogsRepository } from '../blogs/blogs.repository';
 import { PostLikesRepository } from '../post-likes/post-likes.repository';
-import { UsersRepository } from '../users/users.repository';
+import { UsersRepository } from '../users/users-sql.repository';
 
 @Injectable()
 export class PostsRepository {

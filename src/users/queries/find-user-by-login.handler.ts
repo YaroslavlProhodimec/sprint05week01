@@ -1,6 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { FindUserByLoginQuery } from './find-user-by-login.query';
-import { UsersRepository } from '../users.repository';
+import { UsersRepository } from '../users-sql.repository';
 import type { UserDocument } from '../../schemas/user.schema';
 
 @QueryHandler(FindUserByLoginQuery)

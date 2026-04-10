@@ -1,5 +1,5 @@
 import type { PostLikesRepository } from '../../post-likes/post-likes.repository';
-import type { UsersRepository } from '../../users/users.repository';
+import type { UsersRepository } from '../../users/users-sql.repository';
 export interface PostMapperDeps {
     postLikesRepository: PostLikesRepository;
     usersRepository: UsersRepository;

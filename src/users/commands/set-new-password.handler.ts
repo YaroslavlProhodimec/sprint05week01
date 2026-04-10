@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { SetNewPasswordCommand } from './set-new-password.command';
-import { UsersRepository } from '../users.repository';
+import { UsersRepository } from '../users-sql.repository';
 
 @CommandHandler(SetNewPasswordCommand)
 export class SetNewPasswordHandler implements ICommandHandler<SetNewPasswordCommand> {

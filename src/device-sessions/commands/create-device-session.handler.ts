@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateDeviceSessionCommand } from './create-device-session.command';
-import { DeviceSessionsRepository } from '../device-sessions.repository';
+import { DeviceSessionsRepository } from '../device-sessions-sql.repository';
 
 @CommandHandler(CreateDeviceSessionCommand)
 export class CreateDeviceSessionHandler implements ICommandHandler<CreateDeviceSessionCommand> {

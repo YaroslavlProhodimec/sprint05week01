@@ -4,7 +4,7 @@ import { CreatePostDto, UpdatePostDto } from '../dto/postsDTO/create-post.dto';
 import { OutputPostType } from '../types/post/output';
 import { BlogsRepository } from '../blogs/blogs.repository';
 import { PostLikesRepository } from '../post-likes/post-likes.repository';
-import { UsersRepository } from '../users/users.repository';
+import { UsersRepository } from '../users/users-sql.repository';
 export declare class PostsRepository {
     private postModel;
     private blogsRepository;

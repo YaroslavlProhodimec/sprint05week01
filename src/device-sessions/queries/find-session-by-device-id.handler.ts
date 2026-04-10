@@ -1,6 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { FindSessionByDeviceIdQuery } from './find-session-by-device-id.query';
-import { DeviceSessionsRepository } from '../device-sessions.repository';
+import { DeviceSessionsRepository } from '../device-sessions-sql.repository';
 import type { DeviceSessionDocument } from '../../schemas/deviceSession.schema';
 
 @QueryHandler(FindSessionByDeviceIdQuery)

@@ -1,6 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetAllUsersQuery } from './get-all-users.query';
-import { UsersRepository } from '../users.repository';
+import { UsersRepository } from '../users-sql.repository';
 
 @QueryHandler(GetAllUsersQuery)
 export class GetAllUsersHandler implements IQueryHandler<GetAllUsersQuery> {

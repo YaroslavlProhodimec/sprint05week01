@@ -14,13 +14,18 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("./users.service");
+const cqrs_1 = require("@nestjs/cqrs");
 const basic_auth_guard_1 = require("../auth/guards/basic-auth.guard");
 const create_user_dto_1 = require("./dto/create-user.dto");
+const commands_1 = require("./commands");
+const commands_2 = require("./commands");
+const queries_1 = require("./queries");
 let UsersController = class UsersController {
-    usersService;
-    constructor(usersService) {
-        this.usersService = usersService;
+    commandBus;
+    queryBus;
+    constructor(commandBus, queryBus) {
+        this.commandBus = commandBus;
+        this.queryBus = queryBus;
     }
     async getUsers(query) {
         const sortData = {
@@ -33,13 +38,13 @@ let UsersController = class UsersController {
             pageNumber: query.pageNumber,
             pageSize: query.pageSize,
         };
-        return this.usersService.getAllUsers(sortData);
+        return this.queryBus.execute(new queries_1.GetAllUsersQuery(sortData));
     }
     async createUser(dto) {
-        return this.usersService.createUser(dto.login, dto.email, dto.password);
+        return this.commandBus.execute(new commands_1.CreateUserCommand(dto.login, dto.email, dto.password));
     }
     async deleteUser(id) {
-        const deleted = await this.usersService.deleteUser(id);
+        const deleted = await this.commandBus.execute(new commands_2.DeleteUserCommand(id));
         if (!deleted) {
             throw new common_1.NotFoundException(`User with ID ${id} not found`);
         }
@@ -72,6 +77,7 @@ __decorate([
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     (0, common_1.UseGuards)(basic_auth_guard_1.BasicAuthGuard),
-    __metadata("design:paramtypes", [users_service_1.UsersService])
+    __metadata("design:paramtypes", [cqrs_1.CommandBus,
+        cqrs_1.QueryBus])
 ], UsersController);
 //# sourceMappingURL=users.controller.js.map

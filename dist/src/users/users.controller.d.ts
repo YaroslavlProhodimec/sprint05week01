@@ -1,20 +1,10 @@
-import { UsersService } from './users.service';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateUserDto } from './dto/create-user.dto';
 export declare class UsersController {
-    private readonly usersService;
-    constructor(usersService: UsersService);
-    getUsers(query: any): Promise<{
-        pagesCount: number;
-        page: number;
-        pageSize: number;
-        totalCount: number;
-        items: {
-            id: any;
-            login: string;
-            email: string;
-            createdAt: Date;
-        }[];
-    }>;
+    private readonly commandBus;
+    private readonly queryBus;
+    constructor(commandBus: CommandBus, queryBus: QueryBus);
+    getUsers(query: any): Promise<any>;
     createUser(dto: CreateUserDto): Promise<any>;
     deleteUser(id: string): Promise<void>;
 }

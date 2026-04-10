@@ -12,13 +12,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
+const throttler_1 = require("@nestjs/throttler");
 const database_module_1 = require("./database/database.module");
+const postgres_module_1 = require("./database/postgres.module");
+const pg_init_service_1 = require("./database/pg-init.service");
 const blogs_module_1 = require("./blogs/blogs.module");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
 const posts_module_1 = require("./posts/posts.module");
 const comments_module_1 = require("./comments/comments.module");
 const testing_module_1 = require("./testing/testing.module");
+const device_sessions_module_1 = require("./device-sessions/device-sessions.module");
+const security_devices_module_1 = require("./security-devices/security-devices.module");
 const blog_repository_1 = require("./repositories/blog-repository");
 const blogs_repository_1 = require("./blogs/blogs.repository");
 let AppModule = class AppModule {
@@ -39,14 +44,22 @@ exports.AppModule = AppModule = __decorate([
                 envFilePath: process.env.VERCEL ? undefined : '.env',
                 ignoreEnvFile: !!process.env.VERCEL,
             }),
+            throttler_1.ThrottlerModule.forRoot([{
+                    ttl: 10000,
+                    limit: 5,
+                }]),
             database_module_1.DatabaseModule,
+            postgres_module_1.PostgresModule,
             blogs_module_1.BlogsModule,
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
             posts_module_1.PostsModule,
             comments_module_1.CommentsModule,
+            device_sessions_module_1.DeviceSessionsModule,
+            security_devices_module_1.SecurityDevicesModule,
             testing_module_1.TestingModule,
         ],
+        providers: [pg_init_service_1.PgInitService],
     }),
     __metadata("design:paramtypes", [blogs_repository_1.BlogsRepository])
 ], AppModule);

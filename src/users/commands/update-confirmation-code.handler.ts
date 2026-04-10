@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UpdateConfirmationCodeCommand } from './update-confirmation-code.command';
-import { UsersRepository } from '../users.repository';
+import { UsersRepository } from '../users-sql.repository';
 
 @CommandHandler(UpdateConfirmationCodeCommand)
 export class UpdateConfirmationCodeHandler

@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { CommentsRepository } from './comments.repository';
 import { PostsRepository } from '../posts/posts.repository';
-import { UsersRepository } from '../users/users.repository';
+import { UsersRepository } from '../users/users-sql.repository';
 
 @Injectable()
 export class CommentsService {

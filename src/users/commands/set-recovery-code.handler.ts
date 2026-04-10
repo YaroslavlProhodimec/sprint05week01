@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { SetRecoveryCodeCommand } from './set-recovery-code.command';
-import { UsersRepository } from '../users.repository';
+import { UsersRepository } from '../users-sql.repository';
 
 @CommandHandler(SetRecoveryCodeCommand)
 export class SetRecoveryCodeHandler implements ICommandHandler<SetRecoveryCodeCommand> {

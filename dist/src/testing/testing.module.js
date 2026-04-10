@@ -12,7 +12,6 @@ const mongoose_1 = require("@nestjs/mongoose");
 const testing_controller_1 = require("./testing.controller");
 const blog_schema_1 = require("../schemas/blog.schema");
 const post_schema_1 = require("../schemas/post.schema");
-const user_schema_1 = require("../schemas/user.schema");
 const postLike_schema_1 = require("../schemas/postLike.schema");
 const comment_schema_1 = require("../schemas/comment.schema");
 const commentLike_schema_1 = require("../schemas/commentLike.schema");
@@ -25,7 +24,6 @@ exports.TestingModule = TestingModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: blog_schema_1.Blog.name, schema: blog_schema_1.BlogSchema },
                 { name: post_schema_1.Post.name, schema: post_schema_1.PostSchema },
-                { name: user_schema_1.User.name, schema: user_schema_1.UserSchema },
                 { name: postLike_schema_1.PostLike.name, schema: postLike_schema_1.PostLikeSchema },
                 { name: comment_schema_1.Comment.name, schema: comment_schema_1.CommentSchema },
                 { name: commentLike_schema_1.CommentLike.name, schema: commentLike_schema_1.CommentLikeSchema },

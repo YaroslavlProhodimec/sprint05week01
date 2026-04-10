@@ -3,6 +3,8 @@ import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { DatabaseModule } from './database/database.module';
+import { PostgresModule } from './database/postgres.module';
+import { PgInitService } from './database/pg-init.service';
 import { BlogsModule } from './blogs/blogs.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
@@ -26,6 +28,7 @@ import { BlogsRepository } from './blogs/blogs.repository';
       limit: 5,    // 5 запросов за 10 секунд
     }]),
     DatabaseModule,
+    PostgresModule,
     BlogsModule,
     UsersModule,
     AuthModule,
@@ -35,6 +38,7 @@ import { BlogsRepository } from './blogs/blogs.repository';
     SecurityDevicesModule,
     TestingModule,
   ],
+  providers: [PgInitService],
 })
 export class AppModule implements OnModuleInit {
   constructor(private blogsRepository: BlogsRepository) {}

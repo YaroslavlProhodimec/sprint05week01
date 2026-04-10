@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
+const throttler_1 = require("@nestjs/throttler");
 const auth_service_1 = require("./auth.service");
 const login_dto_1 = require("./dto/login.dto");
 const register_dto_1 = require("./dto/register.dto");
@@ -37,14 +38,36 @@ let AuthController = class AuthController {
     async resendEmail(dto) {
         await this.authService.resendEmail(dto.email);
     }
-    async login(dto, res) {
-        const { accessToken, refreshToken } = await this.authService.login(dto.loginOrEmail, dto.password);
+    async login(dto, req, res) {
+        const ip = req.ip || 'unknown';
+        const deviceName = req.headers['user-agent'] || 'unknown';
+        const { accessToken, refreshToken } = await this.authService.login(dto.loginOrEmail, dto.password, ip, deviceName);
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: true,
             sameSite: 'none',
         });
         return { accessToken };
+    }
+    async refreshToken(req, res) {
+        const oldRefreshToken = req.cookies?.refreshToken;
+        if (!oldRefreshToken) {
+            throw new common_1.UnauthorizedException('No refresh token');
+        }
+        const { accessToken, refreshToken } = await this.authService.refreshTokens(oldRefreshToken);
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+        });
+        return { accessToken };
+    }
+    async logout(req) {
+        const refreshToken = req.cookies?.refreshToken;
+        if (!refreshToken) {
+            throw new common_1.UnauthorizedException('No refresh token');
+        }
+        await this.authService.logout(refreshToken);
     }
     async me(userId) {
         const me = await this.authService.getMe(userId);
@@ -61,6 +84,7 @@ let AuthController = class AuthController {
 };
 exports.AuthController = AuthController;
 __decorate([
+    (0, common_1.UseGuards)(throttler_1.ThrottlerGuard),
     (0, common_1.Post)('registration'),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Body)()),
@@ -69,6 +93,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([
+    (0, common_1.UseGuards)(throttler_1.ThrottlerGuard),
     (0, common_1.Post)('registration-confirmation'),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Body)()),
@@ -77,6 +102,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "confirmCode", null);
 __decorate([
+    (0, common_1.UseGuards)(throttler_1.ThrottlerGuard),
     (0, common_1.Post)('registration-email-resending'),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Body)()),
@@ -85,14 +111,33 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "resendEmail", null);
 __decorate([
+    (0, common_1.UseGuards)(throttler_1.ThrottlerGuard),
     (0, common_1.Post)('login'),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Res)({ passthrough: true })),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [login_dto_1.LoginDto, Object]),
+    __metadata("design:paramtypes", [login_dto_1.LoginDto, Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.Post)('refresh-token'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "refreshToken", null);
+__decorate([
+    (0, common_1.Post)('logout'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "logout", null);
 __decorate([
     (0, common_1.Get)('me'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
@@ -102,6 +147,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "me", null);
 __decorate([
+    (0, common_1.UseGuards)(throttler_1.ThrottlerGuard),
     (0, common_1.Post)('password-recovery'),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Body)()),
@@ -110,6 +156,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "passwordRecovery", null);
 __decorate([
+    (0, common_1.UseGuards)(throttler_1.ThrottlerGuard),
     (0, common_1.Post)('new-password'),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Body)()),

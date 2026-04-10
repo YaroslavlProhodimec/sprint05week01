@@ -8,24 +8,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersModule = void 0;
 const common_1 = require("@nestjs/common");
-const mongoose_1 = require("@nestjs/mongoose");
+const cqrs_1 = require("@nestjs/cqrs");
 const users_controller_1 = require("./users.controller");
-const users_repository_1 = require("./users.repository");
-const users_service_1 = require("./users.service");
-const user_schema_1 = require("../schemas/user.schema");
+const users_sql_repository_1 = require("./users-sql.repository");
+const commands_1 = require("./commands");
+const queries_1 = require("./queries");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
 exports.UsersModule = UsersModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forFeature([
-                { name: user_schema_1.User.name, schema: user_schema_1.UserSchema }
-            ])
+            cqrs_1.CqrsModule,
         ],
         controllers: [users_controller_1.UsersController],
-        providers: [users_service_1.UsersService, users_repository_1.UsersRepository],
-        exports: [users_service_1.UsersService, users_repository_1.UsersRepository],
+        providers: [users_sql_repository_1.UsersRepository, ...commands_1.CommandHandlers, ...queries_1.QueryHandlers],
+        exports: [users_sql_repository_1.UsersRepository, cqrs_1.CqrsModule],
     })
 ], UsersModule);
 //# sourceMappingURL=users.module.js.map

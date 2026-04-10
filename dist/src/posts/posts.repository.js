@@ -21,7 +21,7 @@ const uuid_1 = require("uuid");
 const mapper_1 = require("../types/post/mapper");
 const blogs_repository_1 = require("../blogs/blogs.repository");
 const post_likes_repository_1 = require("../post-likes/post-likes.repository");
-const users_repository_1 = require("../users/users.repository");
+const users_sql_repository_1 = require("../users/users-sql.repository");
 let PostsRepository = class PostsRepository {
     postModel;
     blogsRepository;
@@ -151,6 +151,6 @@ exports.PostsRepository = PostsRepository = __decorate([
     __metadata("design:paramtypes", [mongoose_2.Model,
         blogs_repository_1.BlogsRepository,
         post_likes_repository_1.PostLikesRepository,
-        users_repository_1.UsersRepository])
+        users_sql_repository_1.UsersRepository])
 ], PostsRepository);
 //# sourceMappingURL=posts.repository.js.map

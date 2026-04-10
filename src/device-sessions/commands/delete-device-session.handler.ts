@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DeleteDeviceSessionCommand } from './delete-device-session.command';
-import { DeviceSessionsRepository } from '../device-sessions.repository';
+import { DeviceSessionsRepository } from '../device-sessions-sql.repository';
 
 @CommandHandler(DeleteDeviceSessionCommand)
 export class DeleteDeviceSessionHandler implements ICommandHandler<DeleteDeviceSessionCommand> {
