@@ -75,7 +75,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "deleteUser", null);
 exports.UsersController = UsersController = __decorate([
-    (0, common_1.Controller)('users'),
+    (0, common_1.Controller)('sa/users'),
     (0, common_1.UseGuards)(basic_auth_guard_1.BasicAuthGuard),
     __metadata("design:paramtypes", [cqrs_1.CommandBus,
         cqrs_1.QueryBus])

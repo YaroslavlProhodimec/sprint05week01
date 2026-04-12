@@ -9,6 +9,7 @@ const platform_express_1 = require("@nestjs/platform-express");
 const app_module_1 = require("./app.module");
 const express_1 = __importDefault(require("express"));
 const common_1 = require("@nestjs/common");
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 let cachedApp;
 async function createApp() {
     if (cachedApp) {
@@ -19,6 +20,7 @@ async function createApp() {
         const app = await core_1.NestFactory.create(app_module_1.AppModule, new platform_express_1.ExpressAdapter(expressApp), {
             logger: ['error', 'warn', 'log'],
         });
+        app.use((0, cookie_parser_1.default)());
         app.useGlobalPipes(new common_1.ValidationPipe({
             transform: true,
             whitelist: true,

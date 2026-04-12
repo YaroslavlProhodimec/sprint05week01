@@ -3,6 +3,7 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import express from 'express';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import cookieParser from 'cookie-parser';
 
 let cachedApp: any;
 
@@ -21,8 +22,7 @@ async function createApp() {
       }
     );
 
-    // Убираем префикс для совместимости с тестами
-    // app.setGlobalPrefix('api');
+    app.use(cookieParser());
     app.useGlobalPipes(
       new ValidationPipe({
         transform: true,
