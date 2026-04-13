@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
+const throttler_1 = require("@nestjs/throttler");
 const auth_service_1 = require("./auth.service");
 const login_dto_1 = require("./dto/login.dto");
 const register_dto_1 = require("./dto/register.dto");
@@ -83,6 +84,7 @@ let AuthController = class AuthController {
 };
 exports.AuthController = AuthController;
 __decorate([
+    (0, common_1.UseGuards)(throttler_1.ThrottlerGuard),
     (0, common_1.Post)('registration'),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Body)()),
@@ -91,6 +93,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([
+    (0, common_1.UseGuards)(throttler_1.ThrottlerGuard),
     (0, common_1.Post)('registration-confirmation'),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Body)()),
@@ -99,6 +102,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "confirmCode", null);
 __decorate([
+    (0, common_1.UseGuards)(throttler_1.ThrottlerGuard),
     (0, common_1.Post)('registration-email-resending'),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Body)()),
@@ -107,6 +111,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "resendEmail", null);
 __decorate([
+    (0, common_1.UseGuards)(throttler_1.ThrottlerGuard),
     (0, common_1.Post)('login'),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Body)()),
@@ -142,6 +147,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "me", null);
 __decorate([
+    (0, common_1.UseGuards)(throttler_1.ThrottlerGuard),
     (0, common_1.Post)('password-recovery'),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Body)()),
@@ -150,6 +156,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "passwordRecovery", null);
 __decorate([
+    (0, common_1.UseGuards)(throttler_1.ThrottlerGuard),
     (0, common_1.Post)('new-password'),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Body)()),

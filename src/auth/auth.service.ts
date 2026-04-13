@@ -209,8 +209,8 @@ export class AuthService {
     const refreshSecret = process.env.REFRESH_TOKEN_SECRET || 'refresh-secret';
 
     const [accessToken, refreshToken] = await Promise.all([
-      jwtService.createJWT({ userId }, accessSecret, 300),         // 5 мин
-      jwtService.createJWT({ userId, deviceId }, refreshSecret, 600), // 10 мин
+      jwtService.createJWT({ userId }, accessSecret, 10),         // 10 сек
+      jwtService.createJWT({ userId, deviceId }, refreshSecret, 20), // 20 сек
     ]);
 
     // Достаём iat из нового refresh токена
@@ -233,8 +233,8 @@ export class AuthService {
     const refreshSecret = process.env.REFRESH_TOKEN_SECRET || 'refresh-secret';
 
     const [accessToken, refreshToken] = await Promise.all([
-      jwtService.createJWT({ userId }, accessSecret, 300),         // 5 мин
-      jwtService.createJWT({ userId, deviceId }, refreshSecret, 600), // 10 мин
+      jwtService.createJWT({ userId }, accessSecret, 10),         // 10 сек
+      jwtService.createJWT({ userId, deviceId }, refreshSecret, 20), // 20 сек
     ]);
 
     const refreshPayload = await jwtService.getJwtPayloadResult(refreshToken, refreshSecret);

@@ -162,8 +162,8 @@ let AuthService = class AuthService {
         const accessSecret = process.env.ACCESS_TOKEN_SECRET || 'access-secret';
         const refreshSecret = process.env.REFRESH_TOKEN_SECRET || 'refresh-secret';
         const [accessToken, refreshToken] = await Promise.all([
-            jwt_service_1.jwtService.createJWT({ userId }, accessSecret, 300),
-            jwt_service_1.jwtService.createJWT({ userId, deviceId }, refreshSecret, 600),
+            jwt_service_1.jwtService.createJWT({ userId }, accessSecret, 10),
+            jwt_service_1.jwtService.createJWT({ userId, deviceId }, refreshSecret, 20),
         ]);
         const refreshPayload = await jwt_service_1.jwtService.getJwtPayloadResult(refreshToken, refreshSecret);
         const issuedAt = new Date((refreshPayload.iat ?? 0) * 1000);
@@ -175,8 +175,8 @@ let AuthService = class AuthService {
         const accessSecret = process.env.ACCESS_TOKEN_SECRET || 'access-secret';
         const refreshSecret = process.env.REFRESH_TOKEN_SECRET || 'refresh-secret';
         const [accessToken, refreshToken] = await Promise.all([
-            jwt_service_1.jwtService.createJWT({ userId }, accessSecret, 300),
-            jwt_service_1.jwtService.createJWT({ userId, deviceId }, refreshSecret, 600),
+            jwt_service_1.jwtService.createJWT({ userId }, accessSecret, 10),
+            jwt_service_1.jwtService.createJWT({ userId, deviceId }, refreshSecret, 20),
         ]);
         const refreshPayload = await jwt_service_1.jwtService.getJwtPayloadResult(refreshToken, refreshSecret);
         const issuedAt = new Date((refreshPayload.iat ?? 0) * 1000);
